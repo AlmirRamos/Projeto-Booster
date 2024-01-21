@@ -227,8 +227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLoadDelay: 2
-  audioColision: {fileID: 8300000, guid: f347fd64f5da74c4eb225ab65d49a951, type: 3}
-  audioFinish: {fileID: 8300000, guid: 09357644edb062f40aee11885bd1d093, type: 3}
+  success: {fileID: 8300000, guid: 09357644edb062f40aee11885bd1d093, type: 3}
+  crash: {fileID: 8300000, guid: f347fd64f5da74c4eb225ab65d49a951, type: 3}
 --- !u!114 &8589147901459746668
 MonoBehaviour:
   m_ObjectHideFlags: 0
