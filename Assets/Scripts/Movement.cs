@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody rigidbody;
-    AudioSource audioSource;
-
     public float mainThrust = 500f;
     public float rotationThrust = 50f;
+    public AudioClip mainEngine;
+
+    Rigidbody rigidb;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rigidb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -28,11 +29,11 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            rigidbody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+            rigidb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
 
             if(!audioSource.isPlaying)
             {
-                 audioSource.Play();
+                 audioSource.PlayOneShot(mainEngine);
             }
         }
         else
@@ -54,9 +55,9 @@ public class Movement : MonoBehaviour
 
         void ApplyRotation(float rotationThisFrame)
         {
-            rigidbody.freezeRotation = true;
+            rigidb.freezeRotation = true;
             transform.Rotate(Vector3.forward * Time.deltaTime * rotationThisFrame);
-            rigidbody.freezeRotation = false;
+            rigidb.freezeRotation = false;
         }
     }
 
