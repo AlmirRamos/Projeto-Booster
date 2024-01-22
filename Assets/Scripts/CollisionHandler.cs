@@ -11,6 +11,8 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audioSource;
 
+    bool isTransitioning = false;
+
     void Start()
     {
          audioSource = GetComponent<AudioSource>();
@@ -18,6 +20,8 @@ public class CollisionHandler : MonoBehaviour
 
      void OnCollisionEnter(Collision other) 
     {
+        if(isTransitioning){return;}
+
         switch (other.gameObject.tag)
         {
             case "Inicio":
@@ -36,16 +40,20 @@ public class CollisionHandler : MonoBehaviour
 
     void StartSuccessSequence()
     {
-        GetComponent<Movement>().enabled = false;
-        Invoke("LoadNextLevel", levelLoadDelay);
-        audioSource.PlayOneShot(success);
+        isTransitioning = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(success); //Emite som quando encostar no quadrado final
+        GetComponent<Movement>().enabled = false; //Desabilita o movimento
+        Invoke("LoadNextLevel", levelLoadDelay); //Vai para o proximo level após 2 segundos
     }
 
     void StartCrashSequence()
     {
-        GetComponent<Movement>().enabled = false;
-        Invoke("ReloadLevel", levelLoadDelay);
-         audioSource.PlayOneShot(crash);
+        isTransitioning = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(crash);//Emite som quando esbarra em algo
+        GetComponent<Movement>().enabled = false;//Desabilita o movimento
+        Invoke("ReloadLevel", levelLoadDelay);//Recarrega o jogo após 2 segundos
     }
 
     void LoadNextLevel()
