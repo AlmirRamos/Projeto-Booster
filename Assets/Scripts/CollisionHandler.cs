@@ -6,8 +6,8 @@ public class CollisionHandler : MonoBehaviour
 {
 
     [SerializeField] float levelLoadDelay = 2f;
-    [SerializeField] AudioClip success;
-    [SerializeField] AudioClip crash;
+    [SerializeField] AudioClip success, crash;
+    [SerializeField] ParticleSystem successParticles, crashParticles;
 
     AudioSource audioSource;
 
@@ -43,6 +43,7 @@ public class CollisionHandler : MonoBehaviour
         isTransitioning = true;
         audioSource.Stop();
         audioSource.PlayOneShot(success); //Emite som quando encostar no quadrado final
+        successParticles.Play();//Particulas ativam quando encosta no final
         GetComponent<Movement>().enabled = false; //Desabilita o movimento
         Invoke("LoadNextLevel", levelLoadDelay); //Vai para o proximo level após 2 segundos
     }
@@ -52,6 +53,7 @@ public class CollisionHandler : MonoBehaviour
         isTransitioning = true;
         audioSource.Stop();
         audioSource.PlayOneShot(crash);//Emite som quando esbarra em algo
+        crashParticles.Play();
         GetComponent<Movement>().enabled = false;//Desabilita o movimento
         Invoke("ReloadLevel", levelLoadDelay);//Recarrega o jogo após 2 segundos
     }
